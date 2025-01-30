@@ -1,3 +1,4 @@
-Django
+Django>=5.1.5
+djangorestframework>=3.14
 gunicorn
 psycopg2-binary

@@ -1,0 +1,28 @@
+# Node.js (Frontend)
+node_modules/
+dist/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Python (Backend)
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+db.sqlite3
+venv/
+.env
+
+# Django
+/static/
+media/
+*.log
+
+# Docker
+*.env
+docker-compose.override.yml

@@ -1,0 +1,39 @@
+services:
+  db:
+    image: postgres:15
+    container_name: qlower_db
+    restart: always
+    env_file:
+      - .env
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  backend:
+    build: ./Backend
+    container_name: qlower_backend
+    depends_on:
+      - db
+    env_file:
+      - .env
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./Backend:/app
+    command: ["gunicorn", "--bind", "0.0.0.0:8000", "app.wsgi:application"]
+
+  frontend:
+    build: ./Frontend
+    container_name: qlower_frontend
+    depends_on:
+      - backend
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./Frontend:/app
+    stdin_open: true
+    tty: true
+
+volumes:
+  pg_data:

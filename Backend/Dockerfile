@@ -9,9 +9,15 @@ COPY requirements.txt .
 
 # Installer Netcat
 RUN apt-get update && apt-get install -y netcat-openbsd
+RUN apt update && apt install -y postgresql-client
+
 
 # Installation des dépendances
 RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install dj-database-url
+RUN pip install python-dotenv
+RUN pip install django-cors-headers
+
 
 # Copier le reste du projet
 COPY . .

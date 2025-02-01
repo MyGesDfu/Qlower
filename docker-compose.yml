@@ -1,7 +1,7 @@
 services:
-  db:
+  qlowerdb:
     image: postgres:15
-    container_name: qlower_db
+    container_name: qlowerdb
     restart: always
     env_file:
       - .env
@@ -14,7 +14,7 @@ services:
     build: ./Backend
     container_name: qlower_backend
     depends_on:
-      - db
+      - qlowerdb
     env_file:
       - .env
     ports:

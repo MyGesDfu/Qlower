@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const CreateTransactionForm = () => {
+const CreateTransactionForm = ({ setTransactions }) => {
     const [date, setDate] = useState("");
     const [categorie, setCategorie] = useState("Ventes");
     const [montant, setMontant] = useState("");
@@ -8,12 +8,17 @@ const CreateTransactionForm = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         const transaction = { date, categorie, montant };
-        // Envoyer la requête POST pour enregistrer la transaction
-        fetch("/api/transactions/", {
+
+        fetch("http://localhost:8000/app/transactions/", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(transaction),
-        });
+        })
+        .then((res) => res.json())
+        .then((data) => {
+            setTransactions((prevTransactions) => [...prevTransactions, data]); // Ajoute la nouvelle transaction
+        })
+        .catch((error) => console.error("Error:", error));
     };
 
     return (
@@ -25,7 +30,7 @@ const CreateTransactionForm = () => {
                 <option value="Salaires">Salaires</option>
             </select>
             <input type="number" value={montant} onChange={(e) => setMontant(e.target.value)} required />
-            <button type="submit">Ajouter</button>
+            <button type="submit">Ajouter la transaction</button>
         </form>
     );
 };

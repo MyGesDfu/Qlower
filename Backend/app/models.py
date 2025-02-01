@@ -5,7 +5,6 @@ class Transaction(models.Model):
         ('Ventes', 'Ventes'),
         ('Achats', 'Achats'),
         ('Salaires', 'Salaires'),
-        # Ajoutez d'autres catégories si nécessaire
     ]
     date = models.DateTimeField()
     categorie = models.CharField(max_length=50, choices=CATEGORIE_CHOICES)

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import PropTypes from "prop-types";
 
 const CreateTransactionForm = ({ setTransactions }) => {
     const [date, setDate] = useState("");
@@ -22,17 +23,32 @@ const CreateTransactionForm = ({ setTransactions }) => {
     };
 
     return (
-        <form onSubmit={handleSubmit}>
-            <input type="date" value={date} onChange={(e) => setDate(e.target.value)} required />
-            <select value={categorie} onChange={(e) => setCategorie(e.target.value)}>
-                <option value="Ventes">Ventes</option>
-                <option value="Achats">Achats</option>
-                <option value="Salaires">Salaires</option>
-            </select>
-            <input type="number" value={montant} onChange={(e) => setMontant(e.target.value)} required />
-            <button type="submit">Ajouter la transaction</button>
-        </form>
+        <div>
+            <h2>Nouvelle Transaction</h2>
+            <form onSubmit={handleSubmit}>
+                <div className="form-group">
+                    <label htmlFor="date">Date</label>
+                    <input type="date" value={date} onChange={(e) => setDate(e.target.value)} required />
+                </div>
+                <div className="select select--multiple">
+                    <select id="multi-select" value={categorie} onChange={(e) => setCategorie(e.target.value)} multiple>
+                        <option value="Ventes">Ventes</option>
+                        <option value="Achats">Achats</option>
+                        <option value="Salaires">Salaires</option>
+                    </select>
+                    <span className="focus"></span>
+                </div>
+                <div className="form-group">
+                    <input placeholder="Ajoutez le montant de la transaction"type="number" value={montant} onChange={(e) => setMontant(e.target.value)} required />
+                </div>
+                <button className="btn-primary" type="submit">Ajouter la transaction</button>
+            </form>
+        </div>
     );
+};
+
+CreateTransactionForm.propTypes = {
+    setTransactions: PropTypes.func.isRequired,
 };
 
 export default CreateTransactionForm;

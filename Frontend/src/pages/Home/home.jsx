@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import CreateTransactionForm from '../../components/CreateTransaction/CreateTransaction'
 import TransactionList from '../../components/TransactionList/TransactionList'
-import BalanceButton from '../../components/BalanceButton/BalanceButton'
+import ListHeader from '../../components/ListHeader/ListHeader'
 
 
 const Home = () =>  {
@@ -16,12 +16,21 @@ const Home = () =>  {
 
   return (
     <main>
-        <section>
-            <CreateTransactionForm setTransactions={setTransactions} />
-            <TransactionList transactions={transactions} />
-            <BalanceButton />
+      <div className='container'>
+        <header>
+            <h1>Gestion Comptable</h1>
+        </header>
+
+        <section className='transaction-form'>
+            <CreateTransactionForm className='transaction-form' setTransactions={setTransactions} />
         </section>
+        <section className='transaction-list'>
+          <ListHeader />
+          <TransactionList transactions={transactions} />
+        </section>
+       </div>
     </main>
+    
   )
 }
 

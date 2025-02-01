@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const BalanceButton = () => {
+const ListHeader = () => {
     const [annee, setAnnee] = useState("");
   
     const handleGenerate = () => {
@@ -16,17 +16,22 @@ const BalanceButton = () => {
     };
   
     return (
-      <div>
-        <label>Année :</label>
-        <input
+      <div className="list-header">
+        <h2>Liste des Transactions</h2>
+        <div className="export-section">
+          <input
           type="number"
+          placeholder="Entrez l'année"
           value={annee}
           onChange={(e) => setAnnee(e.target.value)}
           required
-        />
-        <button onClick={handleGenerate}>Générer la balance comptable</button>
+          />
+          <button className="btn-secondary" onClick={handleGenerate}> 
+            Exporter 
+          </button>
+        </div>
       </div>
     );
 }
 
-export default BalanceButton;
+export default ListHeader;

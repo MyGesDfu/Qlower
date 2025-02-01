@@ -1,17 +1,22 @@
 import { useState } from "react";
+import { fetchBalanceComptable } from "../../utilis/API";
 
 const ListHeader = () => {
     const [annee, setAnnee] = useState("");
   
     const handleGenerate = () => {
-      fetch(`http://localhost:8000/app/balance-comptable/${annee}/`)
-        .then((res) => res.blob())
+      fetchBalanceComptable(annee)
         .then((blob) => {
           const url = window.URL.createObjectURL(blob);
           const a = document.createElement("a");
           a.href = url;
           a.download = `balance_comptable_${annee}.csv`;
           a.click();
+          window.URL.revokeObjectURL(url);
+        })
+        .catch((error) => {
+          alert("Une erreur est survenue lors du téléchargement du fichier.")
+          console.error("Error deleting transaction:", error);
         });
     };
   

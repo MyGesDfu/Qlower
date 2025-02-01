@@ -5,10 +5,18 @@ const CreateTransactionForm = ({ setTransactions }) => {
     const [date, setDate] = useState("");
     const [categorie, setCategorie] = useState([]);
     const [montant, setMontant] = useState("");
+    const [loading, setLoading] = useState(false);
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        setLoading(true);
         const transaction = { date, categorie: categorie.join(", "), montant };
+
+        if (!date || categorie.length === 0 || montant <= 0) {
+            alert("Veuillez remplir tous les champs avec des valeurs valides.");
+            setLoading(false);
+            return;
+        }    
 
         fetch("http://localhost:8000/app/transactions/", {
             method: "POST",
@@ -19,7 +27,8 @@ const CreateTransactionForm = ({ setTransactions }) => {
         .then((data) => {
             setTransactions((prevTransactions) => [...prevTransactions, data]);
         })
-        .catch((error) => console.error("Error:", error));
+        .catch((error) => console.error("Error:", error))
+        .finally(() => setLoading(false));
     };
 
     const handleCategorieChange = (e) => {
@@ -57,7 +66,7 @@ const CreateTransactionForm = ({ setTransactions }) => {
                         required 
                     />
                 </div>
-                <button className="btn-primary" type="submit">Ajouter la transaction</button>
+                <button className="btn-primary" type="submit" disabled={loading}>Ajouter la transaction</button>
             </form>
         </div>
     );

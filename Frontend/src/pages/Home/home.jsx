@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import CreateTransactionForm from '../../components/CreateTransaction/CreateTransaction'
 import TransactionList from '../../components/TransactionList/TransactionList'
 import ListHeader from '../../components/ListHeader/ListHeader'
+import { fetchTransactions } from '../../utilis/API'
 
 
 const Home = () =>  {
@@ -9,9 +10,11 @@ const Home = () =>  {
   const [transactions, setTransactions] = useState([]);
 
   useEffect(() => {
-      fetch("http://localhost:8000/app/transactions/")
-          .then((res) => res.json())
-          .then((data) => setTransactions(data));
+    const getTransactions = async () => {
+      const data = await fetchTransactions();
+      setTransactions(data);
+    };
+    getTransactions();
   }, []);
 
   return (

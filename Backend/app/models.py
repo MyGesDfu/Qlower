@@ -12,3 +12,11 @@ class Transaction(models.Model):
 
     def __str__(self):
         return f"{self.date} - {self.categorie} - {self.montant}"
+
+class User(models.Model):
+    username = models.CharField(max_length=50)
+    email = models.EmailField(max_length=50, unique=True)
+    password = models.CharField(max_length=50)
+
+    def __str__(self):
+        return f"{self.username} - {self.email} - {self.password}"

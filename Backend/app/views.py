@@ -20,6 +20,11 @@ class TransactionViewSet(viewsets.ModelViewSet):
     queryset = Transaction.objects.all()
     serializer_class = TransactionSerializer
 
+def destroy(self, request, *args, **kwargs):
+    instance = self.get_object()
+    instance.delete()
+    return Response(status=status.HTTP_204_NO_CONTENT)
+
 # Vue pour générer la balance comptable
 def balance_comptable(request, annee):
     # Filtrer les transactions pour l'année spécifiée

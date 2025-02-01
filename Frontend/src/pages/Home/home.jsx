@@ -26,7 +26,7 @@ const Home = () =>  {
         </section>
         <section className='transaction-list'>
           <ListHeader />
-          <TransactionList transactions={transactions} />
+          <TransactionList transactions={transactions} setTransactions={setTransactions} />
         </section>
        </div>
     </main>
